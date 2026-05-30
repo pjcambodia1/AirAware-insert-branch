@@ -1,1 +1,642 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirAware Insert Test</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#030914;
+font-family:Arial,Helvetica,sans-serif;
+color:white;
+overflow-x:hidden;
+}
+
+.app{
+max-width:430px;
+margin:auto;
+min-height:100vh;
+background:
+radial-gradient(circle at top,#14314d 0%,#040b16 45%,#02060d 100%);
+}
+
+/* HEADER */
+
+.header{
+padding:22px 22px 10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.logo{
+font-size:42px;
+font-weight:900;
+letter-spacing:-2px;
+}
+
+.logo span{
+color:#44d7ff;
+}
+
+/* HERO */
+
+.hero{
+padding:24px;
+}
+
+.hero-card{
+position:relative;
+overflow:hidden;
+border-radius:34px;
+padding:28px;
+background:
+linear-gradient(180deg,#081423,#050b14);
+border:1px solid rgba(255,255,255,.06);
+box-shadow:
+0 0 80px rgba(43,157,255,.12),
+inset 0 0 40px rgba(41,109,255,.06);
+}
+
+.score{
+font-size:118px;
+font-weight:900;
+line-height:.85;
+color:#ff9736;
+text-shadow:0 0 30px rgba(255,151,54,.35);
+}
+
+.score-label{
+font-size:34px;
+font-weight:800;
+margin-top:10px;
+color:#ffc375;
+}
+
+.metrics{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-top:26px;
+}
+
+.metric{
+padding:18px;
+border-radius:20px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.06);
+}
+
+.metric small{
+display:block;
+color:#91a4b9;
+margin-bottom:10px;
+font-size:13px;
+}
+
+.metric strong{
+font-size:34px;
+color:#ffd46f;
+}
+
+.metric span{
+display:block;
+margin-top:10px;
+font-size:18px;
+color:#e7eef8;
+}
+
+/* ANATOMY */
+
+.anatomy{
+position:relative;
+margin-top:30px;
+border-radius:28px;
+overflow:hidden;
+background:#03070d;
+border:1px solid rgba(255,255,255,.06);
+}
+
+.anatomy img{
+width:100%;
+display:block;
+}
+
+.glow{
+position:absolute;
+width:120px;
+height:120px;
+border-radius:50%;
+background:
+radial-gradient(circle,
+rgba(255,151,54,.9) 0%,
+rgba(255,151,54,.2) 35%,
+transparent 70%);
+left:50%;
+top:40%;
+transform:translate(-50%,-50%);
+animation:pulse 2.4s infinite;
+mix-blend-mode:screen;
+}
+
+@keyframes pulse{
+
+0%{
+transform:translate(-50%,-50%) scale(.92);
+opacity:.7;
+}
+
+50%{
+transform:translate(-50%,-50%) scale(1.15);
+opacity:1;
+}
+
+100%{
+transform:translate(-50%,-50%) scale(.92);
+opacity:.7;
+}
+
+}
+
+/* ZONDA */
+
+.zonda{
+margin-top:24px;
+padding:22px;
+border-radius:26px;
+border:1px solid rgba(255,184,83,.45);
+background:
+linear-gradient(90deg,
+rgba(255,151,54,.18),
+rgba(255,208,93,.06));
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 0 35px rgba(255,151,54,.12);
+cursor:pointer;
+transition:.25s;
+}
+
+.zonda:hover{
+transform:scale(1.01);
+}
+
+.zonda-title{
+font-size:34px;
+font-weight:900;
+color:#ffd39e;
+}
+
+.zonda-sub{
+margin-top:6px;
+font-size:18px;
+color:#efc89f;
+}
+
+/* STATE PANEL */
+
+.panel{
+margin-top:26px;
+padding:26px;
+border-radius:28px;
+background:
+linear-gradient(180deg,#0f1b2c,#08111c);
+border:1px solid rgba(255,255,255,.06);
+}
+
+.panel h2{
+font-size:42px;
+margin-bottom:18px;
+color:#ffbe72;
+}
+
+.panel p{
+font-size:24px;
+line-height:1.5;
+color:#e9eff7;
+}
+
+/* TABS */
+
+.tabs{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:14px;
+margin-top:28px;
+}
+
+.tab{
+padding:20px 12px;
+border:none;
+border-radius:20px;
+background:#142235;
+color:white;
+font-size:22px;
+font-weight:800;
+transition:.25s;
+}
+
+.tab.active{
+background:
+linear-gradient(135deg,#ff9b39,#ffd76f);
+color:#111;
+}
+
+/* TRAFFIC */
+
+.traffic{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+margin-top:28px;
+}
+
+.traffic-box{
+padding:20px;
+border-radius:22px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.06);
+}
+
+.traffic-box small{
+display:block;
+color:#9bb0c5;
+font-size:15px;
+}
+
+.traffic-box strong{
+display:block;
+margin-top:12px;
+font-size:32px;
+}
+
+.red{
+color:#ff6464;
+}
+
+.green{
+color:#4ed67d;
+}
+
+.orange{
+color:#ffbd69;
+}
+
+/* SYMPTOMS */
+
+.symptoms{
+margin-top:28px;
+display:grid;
+gap:14px;
+}
+
+.symptom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.06);
+font-size:21px;
+}
+
+input{
+width:24px;
+height:24px;
+accent-color:#ff9b39;
+}
+
+/* BUTTON */
+
+.analyze{
+width:100%;
+margin-top:28px;
+padding:22px;
+border:none;
+border-radius:24px;
+font-size:24px;
+font-weight:900;
+color:white;
+background:
+linear-gradient(180deg,#45afff,#2279e0);
+}
+
+/* AI PANEL */
+
+.ai{
+margin-top:26px;
+padding:24px;
+border-radius:26px;
+background:
+linear-gradient(180deg,#101b2c,#0a1320);
+border:1px solid rgba(255,255,255,.06);
+display:none;
+}
+
+.ai h3{
+font-size:34px;
+margin-bottom:16px;
+color:#b5dfff;
+}
+
+.ai p{
+font-size:22px;
+line-height:1.6;
+}
+
+.support{
+margin-top:20px;
+display:grid;
+gap:16px;
+}
+
+.support-item{
+padding:16px;
+border-radius:18px;
+background:rgba(255,255,255,.04);
+font-size:20px;
+line-height:1.5;
+}
+
+/* FOOTER */
+
+.footer{
+padding:40px 20px 80px;
+text-align:center;
+color:#8da1b6;
+font-size:14px;
+line-height:1.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="header">
+<div style="font-size:34px;">☰</div>
+<div class="logo"><span>≋</span> AirAware</div>
+<div style="font-size:30px;">◈</div>
+</div>
+
+<div class="hero">
+
+<div class="hero-card">
+
+<div class="score" id="score">
+72
+</div>
+
+<div class="score-label" id="scoreLabel">
+Compression
+</div>
+
+<div class="metrics">
+
+<div class="metric">
+<small>PLD</small>
+<strong id="pld">38%</strong>
+<span>Rising</span>
+</div>
+
+<div class="metric">
+<small>DA Velocity</small>
+<strong id="velocity">+2.8</strong>
+<span>hPa/hr</span>
+</div>
+
+</div>
+
+<div class="anatomy">
+
+<img src="https://i.imgur.com/9bM7Q6Q.png">
+
+<div class="glow" id="glow"></div>
+
+</div>
+
+<div class="zonda">
+
+<div>
+
+<div class="zonda-title">
+Zonda Effect Active
+</div>
+
+<div class="zonda-sub" id="zondaSub">
+Rapid compression event detected
+</div>
+
+</div>
+
+<div style="font-size:42px;">
+›
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2 id="panelTitle">
+Pressure Shift
+</h2>
+
+<p id="panelText">
+Environmental compression is increasing. Pressure-sensitive individuals may notice heaviness, fatigue, or vascular tension.
+</p>
+
+<div class="tabs">
+
+<button class="tab active" onclick="setMode('compression',this)">
+Pressure
+</button>
+
+<button class="tab" onclick="setMode('unloading',this)">
+Light
+</button>
+
+<button class="tab" onclick="setMode('oscillation',this)">
+Transition
+</button>
+
+</div>
+
+<div class="traffic">
+
+<div class="traffic-box">
+<small>High-BP Sensitivity</small>
+<strong class="red" id="highTraffic">
+RED
+</strong>
+</div>
+
+<div class="traffic-box">
+<small>Low-BP Sensitivity</small>
+<strong class="green" id="lowTraffic">
+GREEN
+</strong>
+</div>
+
+</div>
+
+<div class="symptoms">
+
+<label class="symptom">
+<span>Head pressure</span>
+<input type="checkbox">
+</label>
+
+<label class="symptom">
+<span>Fatigue</span>
+<input type="checkbox">
+</label>
+
+<label class="symptom">
+<span>Heaviness</span>
+<input type="checkbox">
+</label>
+
+<label class="symptom">
+<span>Nausea</span>
+<input type="checkbox">
+</label>
+
+</div>
+
+<button class="analyze" onclick="runAI()">
+Analyze My Response
+</button>
+
+<div class="ai" id="aiPanel">
+
+<h3>
+Adaptive Interpretation
+</h3>
+
+<p id="aiText">
+Compression-style atmospheric loading appears elevated.
+</p>
+
+<div class="support" id="supportList">
+
+<div class="support-item">
+💧 Increase hydration gradually.
+</div>
+
+<div class="support-item">
+🥬 Magnesium-rich foods may support relaxation.
+</div>
+
+<div class="support-item">
+🛏 Reduce excessive exertion during loading windows.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+AirAware provides environmental interpretation and adaptive wellness insights.<br>
+Not medical advice.
+</div>
+
+</div>
+
+<script src="./zonda-engine.js"></script>
+
+<script>
+
+function setMode(mode,btn){
+
+document.querySelectorAll('.tab').forEach(t=>{
+t.classList.remove('active');
+});
+
+btn.classList.add('active');
+
+const glow=document.getElementById('glow');
+
+if(mode==='compression'){
+
+document.getElementById('scoreLabel').innerText='Compression';
+
+document.getElementById('panelTitle').innerText='Pressure Shift';
+
+document.getElementById('panelText').innerText=
+'Environmental compression is increasing. Pressure-sensitive individuals may notice heaviness, fatigue, or vascular tension.';
+
+document.getElementById('zondaSub').innerText=
+'Rapid compression event detected';
+
+glow.style.background=
+'radial-gradient(circle,rgba(255,151,54,.95),rgba(255,151,54,.25) 35%,transparent 70%)';
+
+}
+
+if(mode==='unloading'){
+
+document.getElementById('scoreLabel').innerText='Light Shift';
+
+document.getElementById('panelTitle').innerText='Atmospheric Unloading';
+
+document.getElementById('panelText').innerText=
+'Environmental unloading is active. Some individuals may notice fogginess, nausea, or unstable energy.';
+
+document.getElementById('zondaSub').innerText=
+'Rapid unloading detected';
+
+glow.style.background=
+'radial-gradient(circle,rgba(80,195,255,.95),rgba(80,195,255,.25) 35%,transparent 70%)';
+
+}
+
+if(mode==='oscillation'){
+
+document.getElementById('scoreLabel').innerText='Transition';
+
+document.getElementById('panelTitle').innerText='Oscillation Window';
+
+document.getElementById('panelText').innerText=
+'Environmental variables are changing rapidly and inconsistently. Delayed or unstable responses may occur.';
+
+document.getElementById('zondaSub').innerText=
+'Transition oscillation detected';
+
+glow.style.background=
+'radial-gradient(circle,rgba(188,93,255,.95),rgba(188,93,255,.25) 35%,transparent 70%)';
+
+}
+
+}
+
+function runAI(){
+
+document.getElementById('aiPanel').style.display='block';
+
+}
+
+</script>
+
+</body>
+</html>
+```
 
