@@ -565,74 +565,142 @@ Not medical advice.
 
 <script>
 
-function setMode(mode,btn){
+<script>
 
-document.querySelectorAll('.tab').forEach(t=>{
-t.classList.remove('active');
-});
+const testInput = {
+  pressureNow: 1011.6,
+  pressure1hAgo: 1010.7,
+  daNow: 383,
+  da1hAgo: 350,
+  pldNow: 38,
+  pld1hAgo: 27,
+  convergence: 0.62,
+  divergence: 0.31,
+  oscillation: 0.22,
+  userBpType: "high",
+  pulseNow: 88,
+  pulseBaseline: 74,
+  symptomsSelected: [],
+  feelsNormal: false
+};
 
-btn.classList.add('active');
+let currentResult = classifyZondaState(testInput);
 
-const glow=document.getElementById('glow');
+applyResult(currentResult);
 
-if(mode==='compression'){
+function applyResult(result){
 
-document.getElementById('scoreLabel').innerText='Compression';
+  document.getElementById('score').innerText =
+    result.bsiScore;
 
-document.getElementById('panelTitle').innerText='Pressure Shift';
+  document.getElementById('panelText').innerText =
+    result.explanation;
 
-document.getElementById('panelText').innerText=
-'Environmental compression is increasing. Pressure-sensitive individuals may notice heaviness, fatigue, or vascular tension.';
+  document.getElementById('highTraffic').innerText =
+    result.highBpLight;
 
-document.getElementById('zondaSub').innerText=
-'Rapid compression event detected';
+  document.getElementById('lowTraffic').innerText =
+    result.lowBpLight;
 
-glow.style.background=
-'radial-gradient(circle,rgba(255,151,54,.95),rgba(255,151,54,.25) 35%,transparent 70%)';
+  if(result.state === 'compression'){
 
-}
+    document.getElementById('scoreLabel').innerText =
+      'Compression';
 
-if(mode==='unloading'){
+    document.getElementById('panelTitle').innerText =
+      'Pressure Shift';
 
-document.getElementById('scoreLabel').innerText='Light Shift';
+    document.getElementById('zondaSub').innerText =
+      'Rapid compression event detected';
 
-document.getElementById('panelTitle').innerText='Atmospheric Unloading';
+    document.getElementById('glow').style.background =
+      'radial-gradient(circle,rgba(255,151,54,.95),rgba(255,151,54,.25) 35%,transparent 70%)';
 
-document.getElementById('panelText').innerText=
-'Environmental unloading is active. Some individuals may notice fogginess, nausea, or unstable energy.';
+  }
 
-document.getElementById('zondaSub').innerText=
-'Rapid unloading detected';
+  if(result.state === 'unloading'){
 
-glow.style.background=
-'radial-gradient(circle,rgba(80,195,255,.95),rgba(80,195,255,.25) 35%,transparent 70%)';
+    document.getElementById('scoreLabel').innerText =
+      'Light Shift';
 
-}
+    document.getElementById('panelTitle').innerText =
+      'Atmospheric Unloading';
 
-if(mode==='oscillation'){
+    document.getElementById('zondaSub').innerText =
+      'Rapid unloading detected';
 
-document.getElementById('scoreLabel').innerText='Transition';
+    document.getElementById('glow').style.background =
+      'radial-gradient(circle,rgba(80,195,255,.95),rgba(80,195,255,.25) 35%,transparent 70%)';
 
-document.getElementById('panelTitle').innerText='Oscillation Window';
+  }
 
-document.getElementById('panelText').innerText=
-'Environmental variables are changing rapidly and inconsistently. Delayed or unstable responses may occur.';
+  if(result.state === 'oscillation'){
 
-document.getElementById('zondaSub').innerText=
-'Transition oscillation detected';
+    document.getElementById('scoreLabel').innerText =
+      'Transition';
 
-glow.style.background=
-'radial-gradient(circle,rgba(188,93,255,.95),rgba(188,93,255,.25) 35%,transparent 70%)';
+    document.getElementById('panelTitle').innerText =
+      'Oscillation Window';
 
-}
+    document.getElementById('zondaSub').innerText =
+      'Transition oscillation detected';
+
+    document.getElementById('glow').style.background =
+      'radial-gradient(circle,rgba(188,93,255,.95),rgba(188,93,255,.25) 35%,transparent 70%)';
+
+  }
 
 }
 
 function runAI(){
 
-document.getElementById('aiPanel').style.display='block';
+  const checked =
+    [...document.querySelectorAll('.symptom input:checked')]
+    .map(x => x.parentElement.innerText.trim());
+
+  testInput.symptomsSelected = checked;
+
+  currentResult = classifyZondaState(testInput);
+
+  applyResult(currentResult);
+
+  document.getElementById('aiPanel').style.display =
+    'block';
+
+  let aiText = '';
+
+  if(checked.length === 0){
+
+    aiText =
+      'Current environmental conditions are active, but your response profile presently appears resilient or minimally affected.';
+
+  } else if(
+      checked.includes('Head pressure') ||
+      checked.includes('Heaviness')
+  ){
+
+    aiText =
+      'Your selected symptoms correlate with a compression-style atmospheric response pattern involving convergence and elevated environmental loading.';
+
+  } else if(
+      checked.includes('Nausea')
+  ){
+
+    aiText =
+      'Your selected symptoms correlate more closely with unloading or oscillation sensitivity patterns during rapid environmental shifts.';
+
+  } else {
+
+    aiText =
+      'Moderate environmental adaptation burden detected during the current transition window.';
+
+  }
+
+  document.getElementById('aiText').innerText =
+    aiText;
 
 }
+
 
 </script>
 
